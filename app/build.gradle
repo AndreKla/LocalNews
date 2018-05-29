@@ -1,0 +1,97 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
+
+    defaultConfig {
+        applicationId "localnews.spire.com.localnews"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:cardview-v7:27.1.0'
+    implementation 'com.android.support:recyclerview-v7:27.1.0'
+    implementation 'com.google.android.gms:play-services-location:15.0.0'
+
+    /*RSS Parser
+    https://android-arsenal.com/details/1/6645
+     */
+    implementation 'com.prof.rssparser:rssparser:1.4.1'
+
+    /* Motion view*
+    https://android-arsenal.com/details/1/31
+    */
+
+    /* Pageflip Animation Paper
+    https://android-arsenal.com/details/1/4740
+    */
+
+    implementation 'com.github.eschao:android-PageFlip:1.0.2'
+
+    /*
+    Parallax everywhere
+    https://android-arsenal.com/details/1/1213
+     */
+    implementation 'com.fmsirvent:parallaxeverywhere:1.0.4'
+
+    /*
+    Parallax Image Effect
+    https://android-arsenal.com/details/1/6906
+    //
+    implementation 'com.github.abdularis:ParallaxImageView:1.0' */
+
+
+    /*
+    Search Bar
+    https://android-arsenal.com/details/1/5733
+     */
+    implementation 'com.github.yalantis:jellytoolbar:v1.0'
+
+    /*
+    HTextView
+    https://github.com/hanks-zyh/HTextView
+     */
+    implementation "com.hanks:htextview-base:0.1.6"
+
+    /*okhttp*/
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+
+    /*Easy Location
+    https://android-arsenal.com/details/1/6880
+    */
+
+    /*Glide*/
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+
+
+    /*Espresso TESTING UNIT Test*/
+    // Android runner and rules support
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+
+    // Espresso support
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    // add this for intent mocking support
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
+
+    // add this for webview testing support
+    androidTestCompile 'com.android.support.test.espresso:espresso-web:2.2.2'
+}
