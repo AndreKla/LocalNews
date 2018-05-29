@@ -85,9 +85,9 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
         RequestOptions options = new RequestOptions();
         options.override(500,500);
 
-        viewHolder.txtType.setText(dataModel.getType());
+        viewHolder.txtType.setText(dataModel.getTitle());
 
-        Glide.with(getContext()).load(dataModel.getFeature().toString())
+        Glide.with(getContext()).load(dataModel.getMainImage())
                 .apply(options)
                 .into(viewHolder.info);
 
