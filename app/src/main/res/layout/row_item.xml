@@ -24,7 +24,7 @@
         android:layout_gravity="right"
         android:layout_weight="1">
 
-        <!-- match parent für width und height! -->
+        <!-- match parent für width und height! immer beibehalten sonst funktioniert es nicht -->
         <com.fmsirvent.ParallaxEverywhere.PEWImageView
             android:id="@+id/item_info"
             android:layout_width="match_parent"
@@ -35,6 +35,14 @@
             pew:interpolation="linear"
             pew:parallax_y="160dp"
             pew:update_onDraw="true" />
+
+        <ImageView
+            android:id="@+id/test"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/overlay" />
 
     </FrameLayout>
 

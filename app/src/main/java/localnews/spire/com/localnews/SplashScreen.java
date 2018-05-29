@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -14,16 +13,19 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 
 
 public class SplashScreen extends AppCompatActivity {
 
     private int LOCATION_PERMISSION_CODE = 1;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
 
 
         if (ContextCompat.checkSelfPermission(SplashScreen.this,
@@ -36,7 +38,7 @@ public class SplashScreen extends AppCompatActivity {
         }
 
 
-        onPermissionGrantedi();
+        //onPermissionGranted();
 
     }
 
@@ -92,8 +94,6 @@ public class SplashScreen extends AppCompatActivity {
         startActivity(i);
         finish();
     }
-
-
 
 
 

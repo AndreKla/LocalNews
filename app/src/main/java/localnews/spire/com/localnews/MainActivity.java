@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 import classes.CustomAdapter;
 import classes.DataModel;
-import classes.ItemObjects;
 
 
 public class MainActivity extends Activity {
@@ -24,7 +23,6 @@ public class MainActivity extends Activity {
     ArrayList<DataModel> dataModels;
 
     ListView listView;
-    ItemObjects listViewItems;
     private static CustomAdapter adapter;
 
     @Override
@@ -55,9 +53,6 @@ public class MainActivity extends Activity {
                                                 list.get(i).getImage(),
                                                 list.get(i).getLink()));
 
-                    list.get(i).getTitle();
-                    list.get(i).getImage();
-                    list.get(i).getLink();
 
                 }
 
