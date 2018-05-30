@@ -152,7 +152,7 @@ public class SplashScreen extends AppCompatActivity implements Listener {
         //Hier kommt der Serverrequest mit der Location und return welcher RSS Feed ausgewählt wird
         //wird mit der Aktivity rübergeschickt
         //wenn fail = fallback dann trotzdem weiterschicken zur manuellen eingabe
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, MainActivityPager.class);
         startActivity(i);
         finish();
     }

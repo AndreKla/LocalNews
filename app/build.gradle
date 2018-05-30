@@ -36,7 +36,6 @@ dependencies {
     /* Pageflip Animation Paper
     https://android-arsenal.com/details/1/4740
     */
-
     implementation 'com.github.eschao:android-PageFlip:1.0.2'
 
     /*
@@ -90,4 +89,16 @@ dependencies {
     https://github.com/prabhat1707/EasyWayLocation
      */
     implementation 'com.github.prabhat1707:EasyWayLocation:1.0'
+
+    /*
+    Parallax View Pager
+    https://android-arsenal.com/details/1/6437
+    implementation 'com.github.Haegon:ParallaxViewPager:1.0.1'
+     */
+
+    /*Parallax View Pager full screen pager
+    https://android-arsenal.com/details/1/3310
+     */
+    implementation 'com.github.ybq:parallaxviewpager:2.0.0'
+
 }

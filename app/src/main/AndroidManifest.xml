@@ -25,6 +25,9 @@
         </activity>
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".MainActivityPager"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
