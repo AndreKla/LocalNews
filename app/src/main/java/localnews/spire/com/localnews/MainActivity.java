@@ -30,6 +30,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_main_list);
 
+
         listView=(ListView)findViewById(R.id.list);
 
         dataModels= new ArrayList<>();

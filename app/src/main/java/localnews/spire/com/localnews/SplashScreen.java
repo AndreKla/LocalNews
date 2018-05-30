@@ -13,10 +13,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.example.easywaylocation.EasyWayLocation;
+import com.example.easywaylocation.Listener;
 
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreen extends AppCompatActivity implements Listener {
+
+    EasyWayLocation easyWayLocation;
+    private Double lati, longi;
+    private final int LOCATION_SETTING_REQUEST_CODE = 10;
+    private String stadt;
 
     private int LOCATION_PERMISSION_CODE = 1;
 
@@ -26,7 +32,12 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+        easyWayLocation = new EasyWayLocation(this);
+        easyWayLocation.setListener(this);
 
+        if(stadt != null){
+            onPermissionGrantedi();
+        }
 
         if (ContextCompat.checkSelfPermission(SplashScreen.this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -36,10 +47,6 @@ public class SplashScreen extends AppCompatActivity {
         } else {
             requestStoragePermission();
         }
-
-
-        //onPermissionGranted();
-
     }
 
 
@@ -82,6 +89,61 @@ public class SplashScreen extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public void locationOn() {
+        Toast.makeText(this, "Location ON", Toast.LENGTH_SHORT).show();
+        easyWayLocation.beginUpdates();
+        lati = easyWayLocation.getLatitude();
+        longi = easyWayLocation.getLongitude();
+
+        System.out.println("Lat: " + lati + " / Long:" +longi);
+        System.out.println("Adresse: " + EasyWayLocation.getAddress(this, lati, longi, false, false) );
+        stadt = EasyWayLocation.getAddress(this, lati, longi, false, false);
+
+        if(stadt != null){
+            onPermissionGrantedi();
+        }
+    }
+
+    @Override
+    public void onPositionChanged() {
+        Toast.makeText(this, String.valueOf(easyWayLocation.getLongitude()) + "," + String.valueOf(easyWayLocation.getLatitude()), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void locationCancelled() {
+        easyWayLocation.showAlertDialog("Location cancelled", "canceled this", null);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case LOCATION_SETTING_REQUEST_CODE:
+                easyWayLocation.onActivityResult(resultCode);
+                break;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // make the device update its location
+        easyWayLocation.beginUpdates();
+
+
+    }
+
+    @Override
+    protected void onPause() {
+        // stop location updates (saves battery)
+        easyWayLocation.endUpdates();
+
+
+        super.onPause();
+    }
 
 
 
