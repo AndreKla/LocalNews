@@ -1,5 +1,7 @@
 package localnews.spire.com.localnews;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -7,49 +9,85 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.an.customfontview.CustomTextView;
 import com.bumptech.glide.Glide;
 
 import com.github.ybq.parallaxviewpager.Mode;
 import com.github.ybq.parallaxviewpager.ParallaxViewPager;
+import com.prof.rssparser.Article;
+import com.prof.rssparser.Parser;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+
+import classes.CustomAdapter;
+import classes.DataModel;
 
 
-public class MainActivityPager extends AppCompatActivity {
+public class MainActivityPager extends Activity {
 
     private ParallaxViewPager mParallaxViewPager;
     @SuppressWarnings("SpellCheckingInspection")
-    private String[] mImages = new String[]{
-            "https://drscdn.500px.org/photo/127892951/h%3D600_k%3D1_a%3D1/3487a549dbbe46e2d803a37281543322",
-            "https://drscdn.500px.org/photo/127893495/h%3D600_k%3D1_a%3D1/8462ac67727eecd23c104612ab998633",
-            "https://drscdn.500px.org/photo/127892351/h%3D600_k%3D1_a%3D1/883a524bfaf3aa66ef39652928b61f51",
-            "https://drscdn.500px.org/photo/127891921/h%3D600_k%3D1_a%3D1/c5aec47c6c924d733f58cec483dc41a6",
-            "https://drscdn.500px.org/photo/127913833/h%3D600_k%3D1_a%3D1/7aee64d43cdbe4a1d291effb834137e8",
-            "https://drscdn.500px.org/photo/127900863/h%3D600_k%3D1_a%3D1/e63c59888014392bac32cfb9c383bb9e",
-            "https://drscdn.500px.org/photo/127870627/h%3D600_k%3D1_a%3D1/df562860314d42dd9a4f8bf4ee0ac0e5",
-            "https://drscdn.500px.org/photo/127883901/h%3D600_k%3D1_a%3D1/1ce1dcfbf374fd9d60df960bff046f92",
-            "https://drscdn.500px.org/photo/127875875/h%3D600_k%3D1_a%3D1/9e667207de3ee01b72fec699a61a156f",
-            "https://drscdn.500px.org/photo/127910615/h%3D600_k%3D1_a%3D1/9832834ff48dee33cca9a63c3680c391",
-            "https://drscdn.500px.org/photo/127917691/h%3D600_k%3D1_a%3D1/569744eb7f6b0be651ef95b05409f283",
-            "https://drscdn.500px.org/photo/127895191/h%3D600_k%3D1_a%3D1/6a8dd4932e237244a690b7683d18c184",
-            "https://drscdn.500px.org/photo/127895003/h%3D600_k%3D1_a%3D1/aa9ba5e17219b6523e3576914281d014",
-            "https://drscdn.500px.org/photo/127891201/h%3D600_k%3D1_a%3D1/11e7b89d61b3633d58e80bb4b91cfb96",
-            "https://drscdn.500px.org/photo/127876087/h%3D600_k%3D1_a%3D1/beb9f8d4341e4c99aec0918081c29dfe",
-            "https://drscdn.500px.org/photo/127866171/h%3D600_k%3D1_a%3D1/5100cdeb7006968a012ecf106c0fe28b",
-            "https://drscdn.500px.org/photo/127868593/h%3D600_k%3D1_a%3D1/02ed979046028b417bb6e2214a8403e4",
-            "https://drscdn.500px.org/photo/127868963/h%3D600_k%3D1_a%3D1/be27239695e8002979124bfdeb9730ad",
-            "https://drscdn.500px.org/photo/127879079/h%3D600_k%3D1_a%3D1/d00277578f457e84eb36faa7740f4374",
-    };
+
+    ArrayList<DataModel> dataModels;
+
+    int posi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_main_pager);
         mParallaxViewPager = (ParallaxViewPager) findViewById(R.id.viewpager);
-        initViewPager();
+
+        dataModels= new ArrayList<>();
+
+        Intent mIntent = getIntent();
+        posi = mIntent.getIntExtra("position", 0);
+
+        String urlString = "https://www.bild.de/rssfeeds/vw-lifestyle/vw-lifestyle-16728898,dzbildplus=true,short=1,sort=1,teaserbildmobil=false,view=rss2.bild.xml";
+        Parser parser = new Parser();
+        parser.execute(urlString);
+        parser.onFinish(new Parser.OnTaskCompleted() {
+
+                            @Override
+                            public void onTaskCompleted(ArrayList<Article> list) {
+                                //what to do when the parsing is done
+                                //the Array List contains all article's data. For example you can use it for your adapter.
+                                for (int i = 0; i < list.size(); i++) {
+                                    System.out.println(list.get(i).getTitle() + " + " + list.get(i).getContent());
+
+                                    dataModels.add(new DataModel(list.get(i).getTitle(),
+                                            list.get(i).getAuthor(),
+                                            list.get(i).getDescription(),
+                                            list.get(i).getContent(),
+                                            list.get(i).getImage(),
+                                            list.get(i).getLink()));
+
+
+                                }
+
+                                initViewPager(dataModels, posi);
+
+
+
+                            }
+
+                        @Override
+                        public void onError() {
+
+                        }
+            });
+
     }
 
-    private void initViewPager() {
+    private void initViewPager(final ArrayList<DataModel> dataModels, int pos) {
+
+
         PagerAdapter adapter = new PagerAdapter() {
 
             @Override
@@ -67,7 +105,15 @@ public class MainActivityPager extends AppCompatActivity {
             public Object instantiateItem(ViewGroup container, int position) {
                 View view = View.inflate(container.getContext(), R.layout.pager_item, null);
                 ImageView imageView = (ImageView) view.findViewById(R.id.item_img);
-                Glide.with(MainActivityPager.this).load(mImages[position % mImages.length]).into(imageView);
+
+                CustomTextView date = (CustomTextView) view.findViewById(R.id.date);
+                CustomTextView headline = (CustomTextView) view.findViewById(R.id.headline);
+                CustomTextView description = (CustomTextView)view.findViewById(R.id.description);
+                date.setText(dataModels.get(position).getPubDate());
+                headline.setText(dataModels.get(position).getTitle());
+                description.setText(dataModels.get(position).getDescription());
+
+                Glide.with(MainActivityPager.this).load(dataModels.get(position % dataModels.size()).getMainImage()).into(imageView);
                 container.addView(view, ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT);
                 return view;
@@ -75,10 +121,11 @@ public class MainActivityPager extends AppCompatActivity {
 
             @Override
             public int getCount() {
-                return 40;
+                return dataModels.size();
             }
         };
         mParallaxViewPager.setAdapter(adapter);
+        mParallaxViewPager.setCurrentItem(pos);
     }
 
 

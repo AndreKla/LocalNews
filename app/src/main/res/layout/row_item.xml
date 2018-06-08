@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="100dp"
+    android:id="@+id/rel"
     xmlns:pew="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="10dp">
@@ -32,9 +33,9 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:scaleType="centerCrop"
-            android:src="@drawable/one"
+            android:src="@drawable/background"
             pew:interpolation="linear"
-            pew:parallax_y="160dp"
+            pew:parallax_y="10dp"
             pew:update_onDraw="true" />
 
         <ImageView

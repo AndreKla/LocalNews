@@ -80,7 +80,6 @@ dependencies {
 
     // add this for intent mocking support
     androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
-
     // add this for webview testing support
     androidTestCompile 'com.android.support.test.espresso:espresso-web:2.2.2'
 
@@ -100,5 +99,21 @@ dependencies {
     https://android-arsenal.com/details/1/3310
      */
     implementation 'com.github.ybq:parallaxviewpager:2.0.0'
+
+    /*
+    Blurkit
+    https://android-arsenal.com/details/1/4735
+     */
+
+    /*
+    Custom font view
+    https://android-arsenal.com/details/1/6068
+     */
+    implementation 'com.an.customfontview:customfont:0.1.0'
+
+    /*
+    Lotti Animation
+    */
+    implementation 'com.airbnb.android:lottie:2.5.1'
 
 }

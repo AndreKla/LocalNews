@@ -1,6 +1,7 @@
 package classes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,10 +9,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import java.util.ArrayList;
+
+import localnews.spire.com.localnews.MainActivityPager;
 import localnews.spire.com.localnews.R;
 
 public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnClickListener{
@@ -38,15 +42,24 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
     @Override
     public void onClick(View v) {
 
-        int position=(Integer) v.getTag();
-        Object object= getItem(position);
-        DataModel dataModel=(DataModel)object;
+        int position=(Integer) v.getTag(v.getId());
 
+        System.out.println("given pos1111 :" + position);
+        //Object object= getItem(position);
+        //DataModel dataModel=(DataModel)object;
+
+        Intent i = new Intent(getContext(), MainActivityPager.class);
+        i.putExtra("position",position);
+        mContext.startActivity(i);
+
+        /*
         switch (v.getId())
         {
-            case R.id.item_info:
-                break;
-        }
+            case R.id.item_info: {
+
+            }
+            break;
+        }*/
     }
 
     private int lastPosition = -1;
@@ -65,6 +78,7 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.row_item, parent, false);
+            convertView.setOnClickListener(this);
             viewHolder.txtType = (TextView) convertView.findViewById(R.id.type);
             viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
             viewHolder.seperator = (ImageView) convertView.findViewById(R.id.viewsss);
@@ -91,10 +105,16 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
                 .apply(options)
                 .into(viewHolder.info);
 
-        viewHolder.info.setOnClickListener(this);
+
+        //viewHolder.info.setOnClickListener(this);
         viewHolder.seperator.setVisibility(View.VISIBLE);
         //viewHolder.info.setTag(position);
         // Return the completed view to render on screen
+
+        convertView.setTag(convertView.getId(),position);
+
+
         return convertView;
     }
+
 }
