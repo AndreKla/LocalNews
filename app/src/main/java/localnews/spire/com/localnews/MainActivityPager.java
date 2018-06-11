@@ -66,6 +66,7 @@ public class MainActivityPager extends Activity {
                                             list.get(i).getDescription(),
                                             list.get(i).getContent(),
                                             list.get(i).getImage(),
+                                            list.get(i).getPubDate().toString(),
                                             list.get(i).getLink()));
 
 
@@ -111,7 +112,7 @@ public class MainActivityPager extends Activity {
                 CustomTextView description = (CustomTextView)view.findViewById(R.id.description);
                 date.setText(dataModels.get(position).getPubDate());
                 headline.setText(dataModels.get(position).getTitle());
-                description.setText(dataModels.get(position).getDescription());
+                //description.setText(dataModels.get(position).getDescription());
 
                 Glide.with(MainActivityPager.this).load(dataModels.get(position % dataModels.size()).getMainImage()).into(imageView);
                 container.addView(view, ViewGroup.LayoutParams.MATCH_PARENT,

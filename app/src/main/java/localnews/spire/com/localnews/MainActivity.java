@@ -45,13 +45,14 @@ public class MainActivity extends Activity {
                 //what to do when the parsing is done
                 //the Array List contains all article's data. For example you can use it for your adapter.
                 for(int i = 0; i < list.size(); i++){
-                    System.out.println(list.get(i).getTitle() + " + " + list.get(i).getImage());
+                    System.out.println("CATEGORIE: " + list.get(i).getCategories());
 
                     dataModels.add(new DataModel(list.get(i).getTitle(),
                                                 list.get(i).getAuthor(),
                                                 list.get(i).getDescription(),
                                                 list.get(i).getContent(),
                                                 list.get(i).getImage(),
+                                                list.get(i).getPubDate().toString(),
                                                 list.get(i).getLink()));
 
 

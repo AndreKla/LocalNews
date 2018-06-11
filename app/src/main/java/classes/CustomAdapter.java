@@ -26,6 +26,7 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
     // View lookup cache
     private static class ViewHolder {
         TextView txtName;
+        TextView date;
         TextView txtType;
         TextView txtVersion;
         ImageView info;
@@ -80,6 +81,7 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
             convertView = inflater.inflate(R.layout.row_item, parent, false);
             convertView.setOnClickListener(this);
             viewHolder.txtType = (TextView) convertView.findViewById(R.id.type);
+            viewHolder.date = (TextView) convertView.findViewById(R.id.date);
             viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
             viewHolder.seperator = (ImageView) convertView.findViewById(R.id.viewsss);
 
@@ -100,6 +102,8 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
         options.override(500,500);
 
         viewHolder.txtType.setText(dataModel.getTitle());
+
+        viewHolder.date.setText(dataModel.getPubDate());
 
         Glide.with(getContext()).load(dataModel.getMainImage())
                 .apply(options)

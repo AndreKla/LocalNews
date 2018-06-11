@@ -12,13 +12,14 @@ public class DataModel {
     String category;
 
     public DataModel(String title,String author,String description,
-                     String content,String main_image,String link) {
+                     String content,String main_image,String pub_date,String link) {
         this.title=title;
         this.author = author;
         this.description = description;
         this.content = content;
         this.main_image = main_image;
         this.link = link;
+        this.pub_date = pub_date;
 
     }
 
@@ -28,6 +29,14 @@ public class DataModel {
 
     public void setTitle(String title){
         this.title = title;
+    }
+
+    public String getPubDate() {
+        return pub_date;
+    }
+
+    public void setPubDate(String pubdate){
+        this.pub_date = pub_date;
     }
 
     public String getAuthor(){
@@ -64,10 +73,6 @@ public class DataModel {
     public String getLink(){return link;}
 
     public void setLink(String link){this.link = link;}
-
-    public String getPubDate(){return pub_date;}
-
-    public void setPubDate(String pub_date){this.pub_date = pub_date;}
 
     public String getCategory(){return category;}
 
